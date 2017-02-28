@@ -4,7 +4,7 @@ import {Component} from "@angular/core";
 
     selector: "fisher-insurance",
 
-    template: '<home-page>'
+    templateUrl: './app/app.component.html' 
 
 })
 
