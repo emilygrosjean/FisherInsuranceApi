@@ -6,46 +6,46 @@ using Microsoft.AspNetCore.Mvc;
 
     public class ClaimsController : Controller 
     {
-        private IMemoryStore db;
+        //private IMemoryStore db;
 
-        public ClaimsController(IMemoryStore repo)
-        {
-            db = repo;
-        }
+        //public ClaimsController(IMemoryStore repo)
+        //{
+            //db = repo;
+        //}
 
 
         //POST api/claims
         [HttpPost]
         public IActionResult Post([FromBody] Claim claim)
         {
-            return Ok(db.CreateClaim(claim));
+            return Ok();//db.CreateClaim(claim));
         }  
 
         //GET api/claims/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(db.RetrieveClaim(id));
+            return Ok();//db.RetrieveClaim(id));
         }
 
         //PUT api/claims/id
         [HttpPut("{id}")]
         public IActionResult Put([FromBody] Claim claim)
         {
-            return Ok(db.UpdateClaim(claim));
+            return Ok();//db.UpdateClaim(claim));
         }
 
         //DELETE api/claims/id
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            db.DeleteClaim(id);
+            //db.DeleteClaim(id);
             return Ok();
         }
 
         [HttpGet]
         public IActionResult GetClaims()
         {
-            return Ok(db.RetrieveAllClaims);
+            return Ok();//db.RetrieveAllClaims);
         }
     }
