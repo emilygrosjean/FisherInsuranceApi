@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FisherInsuranceApi.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using FisherInsuranceApi.Security;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FisherInsuranceApi
 {
@@ -53,6 +51,31 @@ namespace FisherInsuranceApi
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            
+            //add our JwtProvider that we created
+            app.UseJwtProvider();
+
+            //add the built in authentication 
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                RequireHttpsMetadata = false,
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = JwtProvider.SecurityKey,
+                    ValidIssuer = JwtProvider.Issuer,
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                }
+            });
+
+            //if we wanted to support cookies, we do this:
+            //app.UseIdentity();
+            //or this
+            //app.UseCookieAuthentication();
+            
             app.UseMvc();
         }
 
